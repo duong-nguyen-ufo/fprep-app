@@ -123,9 +123,9 @@ if 'guest_preferences' not in st.session_state:
     st.session_state.guest_preferences = {
         'style': "Simple and minimal",
         'calories': 2000,
-        'marco_protein': "",
-        'marco_fat': "",
-        'macro_carbs': "",
+        'marco_protein': 170,
+        'marco_fat': 90,
+        'macro_carbs': 130,
         'additional_preference': "",
         'temp_unit': "Celsius",
         'liquid_unit': "ml",
