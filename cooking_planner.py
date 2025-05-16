@@ -6,8 +6,8 @@ import openai
 from openai import OpenAI
 import os
 from dotenv import load_dotenv
-from google.oauth2 import id_token
-from google.auth.transport import requests as google_requests
+# from google.oauth2 import id_token
+# from google.auth.transport import requests as google_requests
 import streamlit.components.v1 as components
 
 load_dotenv()
