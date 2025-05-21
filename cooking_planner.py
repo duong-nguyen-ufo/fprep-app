@@ -16,7 +16,7 @@ load_dotenv()
 client = OpenAI(
     api_key = os.environ.get("OPENAI_API_KEY"),
 )
-model = 'gpt-4o'
+model = 'gpt-4o-mini'
 
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 
