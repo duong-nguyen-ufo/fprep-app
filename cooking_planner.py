@@ -11,8 +11,11 @@ from dotenv import load_dotenv
 import streamlit.components.v1 as components
 
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
-client=OpenAI()
+# openai.api_key = os.getenv("OPENAI_API_KEY")
+# client=OpenAI()
+client = OpenAI(
+    api_key = os.environ.get("OPENAI_API_KEY"),
+)
 model = 'gpt-4o'
 
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
@@ -364,9 +367,9 @@ with tab2:
                              preferences.get('style', "Simple and minimal")))
 
     calories = st.number_input("Daily calorie goal", min_value=0, value=preferences.get('calories', 2000))
-    macro_protein = st.number_input("Daily protein macro goal", min_value=0, value=preferences.get('macro_protein', 170))
-    macro_fat = st.number_input("Daily fat macro goal", min_value=0, value=preferences.get('macro_fat', 90))
-    macro_carbs = st.number_input("Daily carb macro goal", min_value=0, value=preferences.get('macro_carbs', 130))
+    macro_protein = st.number_input("Daily protein macro goal (% of calories)", min_value=0, value=preferences.get('macro_protein', 35))
+    macro_fat = st.number_input("Daily fat macro goal (% of calories)", min_value=0, value=preferences.get('macro_fat', 25))
+    macro_carbs = st.number_input("Daily carb macro goal (% of calories)", min_value=0, value=preferences.get('macro_carbs', 40))
     additional_preference = st.text_area("Additional preferences (e.g. cuisine type, ingredients)",
                                          value=preferences.get('additional_preference', ""))
 
@@ -451,7 +454,8 @@ with tab3:
                     - Have very minimal in-cooking equipment washing time
                     - Utilize all the equipment as much as possible to prepare or cook multiple ingredients simultaneously. 
                     - Include the steps and time for washing produce and washing equipment, if any.
-                    - Estimate the time taken for each step
+                    - Estimate the time taken for each step. 
+                    - Sum up the time from all the steps to get the estimated total time.
                     - Because the food is cooked and stored for the week ahead, include the storing and packing step. 
                     The cooking plan should start from the minute 0 as the starting point of the cooking timeline, then add each step with the step's duration. 
                     
@@ -556,7 +560,11 @@ with tab3:
                                 Please help write a meal plan and grocery list tailored to my needs.
 
                                 Step 1: Understand all the information that you need to write a cooking plan for my  needs.
-                                - My cooking style, cooking preference, calories need per day, macros need per day, and measure units info are: {preferences}
+                                - My cooking style is {preferences['style']}
+                                - My daily calories need is {preferences['calories']} calories
+                                - My protein, fat, carbs percentage distribution of the daily calories are respectively: {preferences['macro_protein']}%, {preferences['macro_fat']}%, {preferences['macro_carbs']}%
+                                - My additional preference is {preferences['additional_preference']} 
+                                - My units for temperature unit, liquid unit, and mass unit are: {preferences['temp_unit']}, {preferences['liquid_unit']}, {preferences['mass_unit']}
                                 - I want to cook for {days} for the next week.
                                 - The dishes I want to cook are {meals}
                                 - The existing ingredients that I want to incorporate into the recipes, if possible, are {existing_ingredients}.
