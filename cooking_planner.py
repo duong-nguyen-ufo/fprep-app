@@ -195,7 +195,7 @@ def handle_auth_message():
 
 # Main app
 st.title("FPrep 👨‍🍳")
-st.markdown('''From **F***ck Meal Prep to **EFF**icient Meal Prep''')
+st.markdown('''From **F***ck Meal Prep to **EFF**icient Meal Prep! (powered by AI)''')
 
 # Sidebar for authentication
 with st.sidebar:
